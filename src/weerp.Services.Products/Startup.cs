@@ -62,7 +62,9 @@ namespace weerp.Services.Products
             //app.UseSwaggerDocs();
             app.UseErrorHandler();
             app.UseServiceId();
+#pragma warning disable MVC1005
             app.UseMvc();
+#pragma warning restore MVC1005
             app.UseRabbitMq()
                 .SubscribeCommand<CreateProduct>(onError: (c, e) =>
                     new CreateProductRejected(c.Id, e.Message, e.Code))

@@ -1,4 +1,5 @@
 using Autofac.Extensions.DependencyInjection;
+using MicroS_Common.Logging;
 using MicroS_Common.Metrics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -19,7 +20,7 @@ namespace weerp.Services.Products
                 {
                     webBuilder
                     .UseStartup<Startup>()
-                    //.UseLogging()
+                    .UseLogging()
                     //.UseVault()
                     //.UseLockbox()
                     .UseAppMetrics(); 

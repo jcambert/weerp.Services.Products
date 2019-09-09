@@ -29,7 +29,8 @@ namespace weerp.Services.Products.Handlers
                 throw new MicroSException("product_not_found",
                     $"Product with id: '{command.Id}' was not found.");
             }
-
+            try
+            {
             product.SetName(command.Name);
             product.SetDescription(command.Description);
             product.SetVendor(command.Vendor);
@@ -38,6 +39,11 @@ namespace weerp.Services.Products.Handlers
             await _productsRepository.UpdateAsync(product);
             await _busPublisher.PublishAsync(new ProductUpdated(command.Id, command.Name,
                 command.Description, command.Vendor, command.Price, command.Quantity), context);
+
+            }catch(MicroSException e)
+            {
+                await _busPublisher.PublishAsync (new UpdateProductRejected (command.Id,))
+            }
         }
     }
 }
