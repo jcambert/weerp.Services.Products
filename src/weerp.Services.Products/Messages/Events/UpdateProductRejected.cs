@@ -11,7 +11,7 @@ namespace weerp.Services.Products.Messages.Events
         public string Code { get; }
 
         [JsonConstructor]
-        public  (Guid id, string reason, string code)
+        public UpdateProductRejected(Guid id, string reason, string code)
         {
             Id = id;
             Reason = reason;

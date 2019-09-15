@@ -26,7 +26,7 @@ namespace weerp.Services.Products.Domain
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new MicroSException("empty_product_name",
+                throw new ValidationException("empty_product_name",
                     "Product name cannot be empty.");
             }
 
@@ -38,7 +38,7 @@ namespace weerp.Services.Products.Domain
         {
             if (string.IsNullOrEmpty(vendor))
             {
-                throw new MicroSException("empty_product_vendor",
+                throw new ValidationException("empty_product_vendor",
                     "Product vendor cannot be empty.");
             }
 
@@ -50,7 +50,7 @@ namespace weerp.Services.Products.Domain
         {
             if (string.IsNullOrEmpty(description))
             {
-                throw new MicroSException("empty_product_description",
+                throw new ValidationException("empty_product_description",
                     "Product description cannot be empty.");
             }
 
@@ -63,7 +63,7 @@ namespace weerp.Services.Products.Domain
         {
             if (price <= 0)
             {
-                throw new MicroSException("invalid_product_price",
+                throw new ValidationException("invalid_product_price",
                     "Product price cannot be zero or negative.");
             }
 
@@ -75,7 +75,7 @@ namespace weerp.Services.Products.Domain
         {
             if (quantity < 0)
             {
-                throw new MicroSException("invalid_product_quantity",
+                throw new ValidationException("invalid_product_quantity",
                     "Product quantity cannot be negative.");
             }
 

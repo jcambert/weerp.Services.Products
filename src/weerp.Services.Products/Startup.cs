@@ -69,7 +69,8 @@ namespace weerp.Services.Products
                 .SubscribeCommand<CreateProduct>(onError: (c, e) =>
                     new CreateProductRejected(c.Id, e.Message, e.Code))
                 .SubscribeCommand<UpdateProduct>(onError: (c, e) =>
-                    new UpdateProductRejected(c.Id, e.Message, e.Code))
+                    new UpdateProductRejected(c.Id, e.Message, e.Code)
+                    )
                 .SubscribeCommand<DeleteProduct>(onError: (c, e) =>
                     new DeleteProductRejected(c.Id, e.Message, e.Code))
                 .SubscribeCommand<ReserveProducts>(onError: (c, e) =>
