@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
+using AutoMapper;
 using Consul;
 using MicroS_Common;
 using MicroS_Common.Consul;
@@ -37,6 +38,7 @@ namespace weerp.Services.Products
             //services.AddOpenTracing();
             services.AddRedis();
             services.AddInitializers(typeof(IMongoDbInitializer));
+            services.AddAutoMapper(Assembly.GetEntryAssembly());
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -57,7 +59,7 @@ namespace weerp.Services.Products
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseAllForwardedHeaders();
             //app.UseSwaggerDocs();
             app.UseErrorHandler();
