@@ -9,12 +9,9 @@ namespace weerp.Services.Products.Repositories
 {
     public interface IProductsRepository:IRepository<Product>
     {
-        //Task<Product> GetAsync(Guid id);
-        //Task<bool> ExistsAsync(Guid id);
+
         Task<bool> ExistsAsync(string name);
         Task<PagedResult<Product>> BrowseAsync(BrowseProducts query);
-        //Task AddAsync(Product product);
-        //Task UpdateAsync(Product product);
-       // Task DeleteAsync(Guid id);
+
     }
 }

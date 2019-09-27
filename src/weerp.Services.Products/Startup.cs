@@ -68,17 +68,11 @@ namespace weerp.Services.Products
             app.UseMvc();
 #pragma warning restore MVC1005
             app.UseRabbitMq()
-                .SubscribeCommand<CreateProduct>(onError: (c, e) =>
-                    new CreateProductRejected(c.Id, e.Message, e.Code))
-                .SubscribeCommand<UpdateProduct>(onError: (c, e) =>
-                    new UpdateProductRejected(c.Id, e.Message, e.Code)
-                    )
-                .SubscribeCommand<DeleteProduct>(onError: (c, e) =>
-                    new DeleteProductRejected(c.Id, e.Message, e.Code))
-                .SubscribeCommand<ReserveProducts>(onError: (c, e) =>
-                    new ReserveProductsRejected(c.OrderId, e.Message, e.Code))
-                .SubscribeCommand<ReleaseProducts>(onError: (c, e) =>
-                    new ReleaseProductsRejected(c.OrderId, e.Message, e.Code));
+                .SubscribeCommand<CreateProduct>(onError: (c, e) =>new CreateProductRejected(c.Id, e.Message, e.Code))
+                .SubscribeCommand<UpdateProduct>(onError: (c, e) =>new UpdateProductRejected(c.Id, e.Message, e.Code))
+                .SubscribeCommand<DeleteProduct>(onError: (c, e) =>new DeleteProductRejected(c.Id, e.Message, e.Code))
+                .SubscribeCommand<ReserveProducts>(onError: (c, e) =>new ReserveProductsRejected(c.OrderId, e.Message, e.Code))
+                .SubscribeCommand<ReleaseProducts>(onError: (c, e) =>new ReleaseProductsRejected(c.OrderId, e.Message, e.Code));
 
             var consulServiceId = app.UseConsul();
             applicationLifetime.ApplicationStopped.Register(() =>

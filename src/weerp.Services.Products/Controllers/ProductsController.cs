@@ -1,4 +1,5 @@
-﻿using MicroS_Common.Dispatchers;
+﻿using MicroS_Common.Controllers;
+using MicroS_Common.Dispatchers;
 using MicroS_Common.Types;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

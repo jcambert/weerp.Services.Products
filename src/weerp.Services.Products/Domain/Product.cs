@@ -5,83 +5,43 @@ namespace weerp.Services.Products.Domain
 {
     public class Product : BaseEntity
     {
-        [Unique]
-        public string Name { get; private set; }
-        public string Description { get; private set; }
-        public string Vendor { get; private set; }
-        public decimal Price { get; private set; }
-        public int Quantity { get; private set; }
+        private string _name;
+        private string _vendor;
+        private string _description;
+        private decimal _price;
+        private int _quantity;
 
+        [Unique]
+        public string Name { get => _name; private set { _name = value; } }
+        public string Description { get=>_description; private set { _description = value; } }
+        public string Vendor { get => _vendor; private set { _vendor = value; } }
+        public decimal Price { get=>_price; private set { _price = value; } }
+        public int Quantity { get=>_quantity; private set { _quantity = value; } }
+        
         public Product(Guid id, string name, string description, string vendor,
             decimal price, int quantity)
             : base(id)
         {
+            
             SetName(name);
-            SetVendor(vendor);
             SetDescription(description);
+            SetVendor(vendor);
             SetPrice(price);
             SetQuantity(quantity);
+            
         }
 
-        public void SetName(string name)
-        {
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new ValidationException("empty_product_name",
-                    "Product name cannot be empty.");
-            }
+        
 
-            Name = name.Trim().ToLowerInvariant();
-            SetUpdatedDate();
-        }
+        public void SetName(string name)=>this.SetProperty(ref _name, name?.Trim()?.ToLowerInvariant(), string.IsNullOrEmpty, "empty_product_name", "Product name cannot be empty.",()=>this.SetUpdatedDate());
 
-        public void SetVendor(string vendor)
-        {
-            if (string.IsNullOrEmpty(vendor))
-            {
-                throw new ValidationException("empty_product_vendor",
-                    "Product vendor cannot be empty.");
-            }
+        public void SetDescription(string description) => this.SetProperty(ref _description, description?.Trim()?.ToLowerInvariant(), string.IsNullOrEmpty, "empty_product_description", "Product description cannot be empty.", () => this.SetUpdatedDate());
 
-            Vendor = vendor.Trim().ToLowerInvariant();
-            SetUpdatedDate();
-        }
+        public void SetVendor(string vendor) => this.SetProperty(ref _vendor, vendor?.Trim()?.ToLowerInvariant(), string.IsNullOrEmpty, "empty_product_vendor", "Product vendor cannot be empty.", () => this.SetUpdatedDate());
 
-        public void SetDescription(string description)
-        {
-            if (string.IsNullOrEmpty(description))
-            {
-                throw new ValidationException("empty_product_description",
-                    "Product description cannot be empty.");
-            }
+        public void SetPrice(decimal price) => this.SetProperty(ref _price, price, p => p <= 0, "invalid_product_price", "Product price cannot be zero or negative.", () => this.SetUpdatedDate());
 
-            Description = description.Trim();
-            SetUpdatedDate();
-        }
+        public void SetQuantity(int quantity) => this.SetProperty(ref _quantity, quantity, p => p < 0, "invalid_product_quantity", "Product quantity cannot be negative.", () => this.SetUpdatedDate());
 
-
-        public void SetPrice(decimal price)
-        {
-            if (price <= 0)
-            {
-                throw new ValidationException("invalid_product_price",
-                    "Product price cannot be zero or negative.");
-            }
-
-            Price = price;
-            SetUpdatedDate();
-        }
-
-        public void SetQuantity(int quantity)
-        {
-            if (quantity < 0)
-            {
-                throw new ValidationException("invalid_product_quantity",
-                    "Product quantity cannot be negative.");
-            }
-
-            Quantity = quantity;
-            SetUpdatedDate();
-        }
     }
 }

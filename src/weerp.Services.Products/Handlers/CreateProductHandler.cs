@@ -2,9 +2,6 @@
 using MicroS_Common.Handlers;
 using MicroS_Common.RabbitMq;
 using MicroS_Common.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using weerp.Services.Products.Domain;
 using weerp.Services.Products.Messages.Commands;

@@ -7,6 +7,6 @@ namespace weerp.Services.Products.Controllers
     public class HomeController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get() => Ok("DShop Products Service");
+        public IActionResult Get() => Ok("WeErp Products Service");
     }
 }

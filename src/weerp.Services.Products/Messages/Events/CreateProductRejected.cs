@@ -4,18 +4,10 @@ using System;
 
 namespace weerp.Services.Products.Messages.Events
 {
-    public class CreateProductRejected : IRejectedEvent
+    public class CreateProductRejected : BaseRejectedEvent
     {
-        public Guid Id { get; }
-        public string Reason { get; }
-        public string Code { get; }
-
-        [JsonConstructor]
-        public CreateProductRejected(Guid id, string reason, string code)
+        public CreateProductRejected(Guid id, string reason, string code) : base(id, reason, code)
         {
-            Id = id;
-            Reason = reason;
-            Code = code;
         }
     }
 }
