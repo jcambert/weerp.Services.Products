@@ -4,7 +4,7 @@ using System;
 
 namespace weerp.Services.Products.Messages.Events
 {
-    public class ProductCreated : IEvent
+    /*public class ProductCreated : IEvent
     {
         public Guid Id { get; }
         public string Name { get; }
@@ -25,5 +25,5 @@ namespace weerp.Services.Products.Messages.Events
             Price = price;
             Quantity = quantity;
         }
-    }
+    }*/
 }

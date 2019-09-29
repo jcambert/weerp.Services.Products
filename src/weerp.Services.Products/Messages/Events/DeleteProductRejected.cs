@@ -4,7 +4,7 @@ using System;
 
 namespace weerp.Services.Products.Messages.Events
 {
-    public class DeleteProductRejected : IRejectedEvent
+    /*public class DeleteProductRejected : IRejectedEvent
     {
         public Guid Id { get; }
         public string Reason { get; }
@@ -17,5 +17,5 @@ namespace weerp.Services.Products.Messages.Events
             Reason = reason;
             Code = code;
         }
-    }
+    }*/
 }

@@ -5,7 +5,7 @@ using System;
 
 namespace weerp.Services.Products.Messages.Commands
 {
-    public class CreateProduct : ICommand
+    /*public class CreateProduct : ICommand
     {
         public Guid Id { get; }
         public string Name { get; }
@@ -26,5 +26,5 @@ namespace weerp.Services.Products.Messages.Commands
             Price = price;
             Quantity = quantity;
         }
-    }
+    }*/
 }

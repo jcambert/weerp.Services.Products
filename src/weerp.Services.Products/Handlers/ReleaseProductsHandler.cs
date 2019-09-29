@@ -1,35 +1,31 @@
-﻿using MicroS_Common.Handlers;
+﻿using AutoMapper;
+using MicroS_Common.Handlers;
 using MicroS_Common.RabbitMq;
+using MicroS_Common.Repository;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-using weerp.Services.Products.Messages.Commands;
-using weerp.Services.Products.Messages.Events;
-using weerp.Services.Products.Repositories;
+using weerp.domain.Products.Domain;
+using weerp.domain.Products.Messages.Commands;
+using weerp.domain.Products.Messages.Events;
 
 namespace weerp.Services.Products.Handlers
 {
-    public class ReleaseProductsHandler : ICommandHandler<ReleaseProducts>
-    {
-        private readonly IBusPublisher _busPublisher;
-        private readonly IProductsRepository _productsRepository;
+
+
+    public sealed class ReleaseProductsHandler : DomainCommandHandler<ReleaseProducts, Product> {
         private readonly ILogger<ReleaseProductsHandler> _logger;
 
-        public ReleaseProductsHandler(IBusPublisher busPublisher,
-            IProductsRepository productsRepository,
-            ILogger<ReleaseProductsHandler> logger)
+        public ReleaseProductsHandler(IBusPublisher busPublisher, IMapper mapper, IRepository<Product> repo,ILogger<ReleaseProductsHandler>logger) : base(busPublisher, mapper, repo)
         {
-            _busPublisher = busPublisher;
-            _productsRepository = productsRepository;
             _logger = logger;
         }
-
-        public async Task HandleAsync(ReleaseProducts command, ICorrelationContext context)
+        public override async Task HandleAsync(ReleaseProducts command, ICorrelationContext context)
         {
             foreach ((Guid productId, int quantity) in command.Products)
             {
                 _logger.LogInformation($"Releasing a product: '{productId}' ({quantity})");
-                var product = await _productsRepository.GetAsync(productId);
+                var product = await Repository.GetAsync(productId);
                 if (product == null)
                 {
                     _logger.LogInformation($"Product was not found: '{productId}' (can't release).");
@@ -38,12 +34,11 @@ namespace weerp.Services.Products.Handlers
                 }
 
                 product.SetQuantity(product.Quantity + quantity);
-                await _productsRepository.UpdateAsync(product);
+                await Repository.UpdateAsync(product);
                 _logger.LogInformation($"Released a product: '{productId}' ({quantity})");
             }
 
-            await _busPublisher.PublishAsync(new ProductsReleased(command.OrderId,
-                command.Products), context);
+            await BusPublisher.PublishAsync(CreateEvent<ProductsReleased>(command), context);
         }
     }
 }

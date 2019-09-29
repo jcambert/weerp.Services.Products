@@ -3,7 +3,7 @@ using MicroS_Common.Dispatchers;
 using MicroS_Common.Types;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using weerp.Services.Products.Dto;
+using weerp.domain.Products.Dto;
 using weerp.Services.Products.Queries;
 
 namespace weerp.Services.Products.Controllers

@@ -3,7 +3,7 @@ using System;
 
 namespace weerp.Services.Products.Domain
 {
-    public class Product : BaseEntity
+    /*public class Product : BaseEntity
     {
         private string _name;
         private string _vendor;
@@ -43,5 +43,5 @@ namespace weerp.Services.Products.Domain
 
         public void SetQuantity(int quantity) => this.SetProperty(ref _quantity, quantity, p => p < 0, "invalid_product_quantity", "Product quantity cannot be negative.", () => this.SetUpdatedDate());
 
-    }
+    }*/
 }

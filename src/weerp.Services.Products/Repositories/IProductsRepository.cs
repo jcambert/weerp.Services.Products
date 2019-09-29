@@ -1,13 +1,14 @@
 ﻿using MicroS_Common.Repository;
 using MicroS_Common.Types;
-using System;
 using System.Threading.Tasks;
-using weerp.Services.Products.Domain;
+using weerp.domain.Products.Domain;
+using weerp.domain.Products.Dto;
 using weerp.Services.Products.Queries;
 
 namespace weerp.Services.Products.Repositories
 {
-    public interface IProductsRepository:IRepository<Product>
+    
+    public interface IProductsRepository: IBrowseRepository<Product,BrowseProducts,ProductDto>
     {
 
         Task<bool> ExistsAsync(string name);

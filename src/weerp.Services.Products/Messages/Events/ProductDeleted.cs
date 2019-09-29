@@ -4,7 +4,7 @@ using System;
 
 namespace weerp.Services.Products.Messages.Events
 {
-    public class ProductDeleted : IEvent
+    /*public class ProductDeleted : IEvent
     {
         public Guid Id { get; }
 
@@ -13,5 +13,5 @@ namespace weerp.Services.Products.Messages.Events
         {
             Id = id;
         }
-    }
+    }*/
 }

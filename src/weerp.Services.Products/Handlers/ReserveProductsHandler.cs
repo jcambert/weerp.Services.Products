@@ -1,35 +1,31 @@
-﻿using MicroS_Common.Handlers;
+﻿using AutoMapper;
+using MicroS_Common.Handlers;
 using MicroS_Common.RabbitMq;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-using weerp.Services.Products.Messages.Commands;
-using weerp.Services.Products.Messages.Events;
-using weerp.Services.Products.Repositories;
+using weerp.domain.Products.Domain;
+using weerp.domain.Products.Messages.Commands;
+using weerp.domain.Products.Messages.Events;
 
 namespace weerp.Services.Products.Handlers
 {
-    public class ReserveProductsHandler : ICommandHandler<ReserveProducts>
+
+    public sealed class ReserveProductsHandler : DomainCommandHandler<ReserveProducts, Product>
     {
-        private readonly IBusPublisher _busPublisher;
-        private readonly IProductsRepository _productsRepository;
         private readonly ILogger<ReserveProductsHandler> _logger;
 
-        public ReserveProductsHandler(IBusPublisher busPublisher,
-            IProductsRepository productsRepository,
-            ILogger<ReserveProductsHandler> logger)
+        public ReserveProductsHandler(IBusPublisher busPublisher, IMapper mapper, MicroS_Common.Repository.IRepository<Product> repo, ILogger<ReserveProductsHandler> logger) : base(busPublisher, mapper, repo)
         {
-            _busPublisher = busPublisher;
-            _productsRepository = productsRepository;
             _logger = logger;
         }
 
-        public async Task HandleAsync(ReserveProducts command, ICorrelationContext context)
+        public override async Task HandleAsync(ReserveProducts command, ICorrelationContext context)
         {
             foreach ((Guid productId, int quantity) in command.Products)
             {
                 _logger.LogInformation($"Reserving a product: '{productId}' ({quantity})");
-                var product = await _productsRepository.GetAsync(productId);
+                var product = await Repository.GetAsync(productId);
                 if (product == null)
                 {
                     _logger.LogInformation($"Product was not found: '{productId}' (can't reserve).");
@@ -38,12 +34,12 @@ namespace weerp.Services.Products.Handlers
                 }
 
                 product.SetQuantity(product.Quantity - quantity);
-                await _productsRepository.UpdateAsync(product);
+                await Repository.UpdateAsync(product);
                 _logger.LogInformation($"Reserved a product: '{productId}' ({quantity})");
             }
 
-            await _busPublisher.PublishAsync(new ProductsReserved(command.OrderId,
-                command.Products), context);
+            await BusPublisher.PublishAsync(CreateEvent<ProductsReserved>(command), context);
         }
     }
+
 }

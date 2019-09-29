@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\MicroS-Common\src\MicroS-Common\MicroS-Common.csproj" />
+    <ProjectReference Include="..\..\..\weerp.domain\src\weerp.domain\weerp.domain.csproj" />
   </ItemGroup>
 
 </Project>

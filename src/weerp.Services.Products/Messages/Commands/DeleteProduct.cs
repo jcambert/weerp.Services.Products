@@ -4,7 +4,7 @@ using System;
 
 namespace weerp.Services.Products.Messages.Commands
 {
-    public class DeleteProduct : ICommand
+    /*public class DeleteProduct : ICommand
     {
         public Guid Id { get; }
 
@@ -13,5 +13,5 @@ namespace weerp.Services.Products.Messages.Commands
         {
             Id = id;
         }
-    }
+    }*/
 }

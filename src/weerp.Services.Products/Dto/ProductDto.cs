@@ -2,7 +2,7 @@
 
 namespace weerp.Services.Products.Dto
 {
-    public class ProductDto
+    /*public class ProductDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -10,5 +10,5 @@ namespace weerp.Services.Products.Dto
         public string Vendor { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
-    }
+    }*/
 }

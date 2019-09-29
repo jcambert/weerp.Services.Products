@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace weerp.Services.Products.Messages.Commands
 {
-    public class ReserveProducts : ICommand
+    /*public class ReserveProducts : ICommand
     {
         public Guid OrderId { get; set; }
         public IDictionary<Guid, int> Products { get; }
@@ -16,5 +16,5 @@ namespace weerp.Services.Products.Messages.Commands
             OrderId = orderId;
             Products = products;
         }
-    }
+    }*/
 }
