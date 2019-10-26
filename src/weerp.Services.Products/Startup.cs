@@ -9,6 +9,7 @@ using MicroS_Common.Mongo;
 using MicroS_Common.Mvc;
 using MicroS_Common.RabbitMq;
 using MicroS_Common.Redis;
+using MicroS_Common.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +19,6 @@ using weerp.domain;
 using weerp.domain.Products.Domain;
 using weerp.domain.Products.Messages.Commands;
 using weerp.domain.Products.Messages.Events;
-using weerp.Services.Products.Messages.Events;
 
 namespace weerp.Services.Products
 {
@@ -29,7 +29,7 @@ namespace weerp.Services.Products
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCustomMvc();
-            //services.AddSwaggerDocs();
+            services.AddSwaggerDocs();
             services.AddConsul();
             services.AddJaeger();
             //services.AddOpenTracing();
@@ -58,7 +58,7 @@ namespace weerp.Services.Products
             }
             
             app.UseAllForwardedHeaders();
-            //app.UseSwaggerDocs();
+            app.UseSwaggerDocs();
             app.UseErrorHandler();
             app.UseServiceId();
 #pragma warning disable MVC1005
