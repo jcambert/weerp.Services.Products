@@ -1,7 +1,7 @@
 ﻿using MicroS_Common.Handlers;
 using System.Threading.Tasks;
 using weerp.domain.Products.Dto;
-using weerp.Services.Products.Queries;
+using weerp.domain.Products.Queries;
 using weerp.Services.Products.Repositories;
 
 namespace weerp.Services.Products.Handlers
