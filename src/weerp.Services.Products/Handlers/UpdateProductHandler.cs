@@ -3,6 +3,7 @@ using MicroS_Common.Handlers;
 using MicroS_Common.RabbitMq;
 using MicroS_Common.Repository;
 using MicroS_Common.Types;
+using System;
 using System.Threading.Tasks;
 using weerp.domain.Products.Domain;
 using weerp.domain.Products.Messages.Commands;
@@ -17,7 +18,8 @@ namespace weerp.Services.Products.Handlers
         {
         }
 
-        protected override async Task CheckExist(UpdateProduct command)
+        [Obsolete("Must use validator")]
+        protected override async Task CheckExist(Product command)
         {
             if (!await (Repository as IProductsRepository).ExistsAsync(command.Name))
             {
