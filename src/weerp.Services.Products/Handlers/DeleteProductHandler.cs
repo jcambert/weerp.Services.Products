@@ -3,7 +3,6 @@ using MicroS_Common.Handlers;
 using MicroS_Common.RabbitMq;
 using MicroS_Common.Repository;
 using MicroS_Common.Types;
-using System;
 using System.Threading.Tasks;
 using weerp.domain.Products.Domain;
 using weerp.domain.Products.Messages.Commands;
@@ -14,14 +13,13 @@ namespace weerp.Services.Products.Handlers
 {
 
 
-    public sealed class DeleteProductHandler : DomainCommandHandler<DeleteProduct, Product>
+    public sealed partial class DeleteProductHandler //: DomainCommandHandler<DeleteProduct, Product>
     {
-        public DeleteProductHandler(IBusPublisher busPublisher, IMapper mapper, IRepository<Product> repo) : base(busPublisher, mapper, repo)
+      /*  public DeleteProductHandler(IBusPublisher busPublisher, IMapper mapper, IRepository<Product> repo) : base(busPublisher, mapper, repo)
         {
         }
 
-        [Obsolete("Must use validator")]
-        protected override async Task CheckExist(Product command)
+        protected override async Task CheckExist(DeleteProduct command)
         {
             if (!await (Repository as IProductsRepository).ExistsAsync(command.Id))
             {
@@ -36,6 +34,6 @@ namespace weerp.Services.Products.Handlers
             await Repository.DeleteAsync(command.Id);
             await BusPublisher.PublishAsync(CreateEvent<ProductDeleted>(command) , context);
 
-        }
+        }*/
     }
 }

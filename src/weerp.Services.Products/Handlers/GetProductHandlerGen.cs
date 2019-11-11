@@ -1,15 +1,23 @@
-﻿using AutoMapper;
+using AutoMapper;
 using MicroS_Common.Handlers;
 using System.Threading.Tasks;
 using weerp.domain.Products.Dto;
 using weerp.domain.Products.Queries;
 using weerp.Services.Products.Repositories;
 
+/// <summary>
+/// @author: Ambert Jean-Christophe
+/// @email: jc.ambert@free.fr
+/// @created_on: Mon Nov 11 2019 16:19:55 GMT+0100 (GMT+01:00)
+/// </summary>
 namespace weerp.Services.Products.Handlers
 {
-    public sealed partial class GetProductHandler //:  IQueryHandler<GetProduct, ProductDto>
+    /// <summary>
+    /// Get Product Handler
+    /// </summary>
+    public partial class GetProductHandler :  IQueryHandler<GetProduct, ProductDto>
     {
-      /*  #region private variables
+        #region private variables
         private readonly IProductsRepository _productsRepository;
         private readonly IMapper _mapper;
         #endregion
@@ -31,11 +39,18 @@ namespace weerp.Services.Products.Handlers
         /// <returns></returns>
         public async Task<ProductDto> HandleAsync(GetProduct query)
         {
-            var product = await _productsRepository.GetAsync(query.Id);
+            var model = await _productsRepository.GetAsync(query.Id);
 
-            return product == null ? null : _mapper.Map<ProductDto>(product);
-
+            return model == null ? null : _mapper.Map<ProductDto>(model);
+            /*new ProductDto
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Vendor = product.Vendor,
+                Price = product.Price
+            };*/
         }
-        #endregion*/
+        #endregion
     }
 }
